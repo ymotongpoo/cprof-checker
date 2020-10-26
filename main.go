@@ -19,7 +19,6 @@ import (
 	"image"
 	"image/color"
 	"image/png"
-	"io/ioutil"
 	"log"
 	"math"
 	"math/rand"
@@ -78,7 +77,7 @@ func dummyHeavyLoadProcess() error {
 			})
 		}
 	}
-	f, err := ioutil.TempFile(os.TempDir(), "cprof-sample")
+	f, err := os.Create("cprof-sample.png")
 	if err != nil {
 		return err
 	}
@@ -94,5 +93,6 @@ func dummyHeavyLoadProcess() error {
 	if err := f.Close(); err != nil {
 		return err
 	}
+	os.Remove(f.Name())
 	return nil
 }
